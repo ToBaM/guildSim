@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.min.js"></script>
+    <script src="app.js"></script>
+    <title>アイテムシミュレータ</title>
+</head>
+<body ng-app="App">
+<div ng-controller="CharacterController">
+    アイテムをクリックすると装備します。
+    もう一回クリックすると外します。
+    <ul>
+        <li ng-repeat="item in items" ng-click="addEquip(item.name)">
+           アイテム名： {{item.name}}　攻撃力：{{item.attack}}　防御力：{{item.defence}}
+        </li>
+    </ul>
+    <button ng-click="addItems()">
+        なにもおきないボタン
+    </button>
+    <div>
+       キャラクターの攻撃力 {{attack}}
+       キャラクターの防御力 {{defence}}
+    </div>
+</div>
+
+</body>
+</html>
