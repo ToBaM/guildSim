@@ -10,19 +10,23 @@
 <div ng-controller="CharacterController">
     アイテムをクリックすると装備します。
     もう一回クリックすると外します。
-    <ul>
-        <li ng-repeat="item in items" ng-click="addEquip(item.name)">
-           アイテム名： {{item.name}}　攻撃力：{{item.attack}}　防御力：{{item.defence}}
-        </li>
-    </ul>
-    <button ng-click="addItems()">
-        なにもおきないボタン
-    </button>
+
     <div>
        キャラクターの攻撃力 {{attack}}
        キャラクターの防御力 {{defence}}
     </div>
 </div>
+<div ng-controller="ItemController">
+    <ul>
+        <li ng-repeat="item in items" ng-click="equipItem(item.id)">
+            アイテム名： {{item.name}}　攻撃力：{{item.attack}}　防御力：{{item.defence}}
+        </li>
+    </ul>
+    <button ng-click="addItems()">
+        なにもおきないボタン
+    </button>
+</div>
+
 
 </body>
 </html>

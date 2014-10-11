@@ -7,19 +7,19 @@ angular.module('App', []).controller('CharacterController',['$scope',function($s
 
     $scope.attack=10;
     $scope.defence=20;
-    $scope.items =[{name:'item1',attack:15,defence:25},{name:'item2',attack:25,defence:40}];
 
-    $scope.addItem = function(){
+    $scope.$on('equipEvent', function(event, item){
+       $scope.attack += item.attack;
+       $scope.defence += item.defence;
+    });
+
+}]).controller('ItemController',['$rootScope',function($rootScope){
+    $rootScope.items =[{id:1,name:'item1',attack:15,defence:25},{id:2,name:'item2',attack:25,defence:40}];
+
+    $rootScope.addItem = function(){
     };
 
-    $scope.addEquip = function(name){
-        if(name=='item1'){
-           $scope.attack += $scope.items[0].attack;
-           $scope.defence += $scope.items[0].defence;
-        }
-        else if(name=='item2'){
-            $scope.attack += $scope.items[1].attack;
-            $scope.defence += $scope.items[1].defence;
-        }
+    $rootScope.equipItem = function(id){
+        $rootScope.$broadcast('equipEvent',$rootScope.items[id-1]);
     };
 }]);
