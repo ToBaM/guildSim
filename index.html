@@ -20,6 +20,8 @@
     <ul>
         <li ng-repeat="item in items" ng-click="equipItem(item.id)">
             アイテム名： {{item.name}}　攻撃力：{{item.attack}}　防御力：{{item.defence}}
+            <span ng-if="item.equiped == true">装備中</span>
+            <span ng-if="item.equiped != true">装備してない</span>
         </li>
     </ul>
     <button ng-click="addItems()">
