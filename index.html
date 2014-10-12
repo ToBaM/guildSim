@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <title>アイテムシミュレータ</title>
 </head>
 <body ng-app="App">
@@ -17,18 +19,24 @@
     </div>
 </div>
 <div ng-controller="ItemController">
-    <ul>
-        <li ng-repeat="item in items" ng-click="equipItem(item.id)">
-            アイテム名： {{item.name}}　攻撃力：{{item.attack}}　防御力：{{item.defence}}
-            <span ng-if="item.equiped == true">装備中</span>
-            <span ng-if="item.equiped != true">装備してない</span>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="createdItem in createdItems" ng-click="equipItem(createdItem.id)">
+            アイテム名： {{createdItem.rank}}{{createdItem.name}}　攻撃力：{{createdItem.attack}}　防御力：{{createdItem.defence}}
+            <span ng-show="createdItem.equiped">装備中</span>
         </li>
     </ul>
-    <button ng-click="addItems()">
-        なにもおきないボタン
-    </button>
 </div>
-
-
+<div ng-controller="ItemCreateController">
+    <form name="create">
+        <select ng-model="item.rank" ng-options="rank for rank in ranks">
+            <option value="">称号</option>
+        </select>
+        <select ng-model="item.name" ng-options="name for name in names">
+            <option value="">アイテム名</option>
+        </select>
+        <button ng-click="createItem(item)">つくる</button>
+    </form>
+    <pre>form = {{item | json}}</pre>
+</div>
 </body>
 </html>
