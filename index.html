@@ -3,40 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="app.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="app.css">
+    <script src="app.js"></script>
     <title>アイテムシミュレータ</title>
 </head>
 <body ng-app="App">
-<div ng-controller="CharacterController">
-    アイテムをクリックすると装備します。
-    もう一回クリックすると外します。
+<div class="container">
+    <div class="row">
+        <div ng-controller="CharacterController">
+            <div id="header">
+                アイテムをクリックすると装備します。
+                もう一回クリックすると外します。
+            </div>
 
-    <div>
-       キャラクターの攻撃力 {{attack}}
-       キャラクターの防御力 {{defence}}
+            <div class="col-sm-4" style="background-color: pink;">
+                キャラクターの能力値
+                <ul>
+                    <li>ヒットポイント: {{hitPoint}}</li>
+                    <li>攻撃回数: {{attackTimes}}回</li>
+                    <li>必殺率: {{deadlyBlow}}%</li>
+                    <li>攻撃力: {{attack}}</li>
+                    <li>命中率: {{accuracy}}</li>
+                    <li>防御力: {{defence}}</li>
+                    <li>回避率: {{avoid}}</li>
+                    <li>呪文攻撃力: {{magicAttack}}</li>
+                    <li>呪文回復力: {{magicHeal}}</li>
+                    <li>呪文防御力: {{magicDefence}}</li>
+                </ul>
+            </div>
+        </div>
+        <div ng-controller="ItemController">
+            <div class="col-sm-8" style="background-color: lightgreen;">
+                <ul class="list-group">
+                    <li class="list-group-item"  ng-repeat="createdItem in createdItems"
+                         ng-click="equipItem(createdItem.id)">
+                        <div ng-class="{'equiped': createdItem.equiped}">
+                        アイテム名： <span ng-show="createdItem.rank != '（無称号）'">{{createdItem.rank}}</span>{{createdItem.name}}　攻撃力：{{createdItem.attack}}　防御力：{{createdItem.defence}}
+                        <span ng-show="createdItem.equiped">装備中</span>
+                        </div>
+                    </li>
+                </ul>
+                <form name="create">
+                    <select ng-model="item.rank" ng-options="rank for rank in ranks">
+                        <option value="">称号</option>
+                    </select>
+                    <select ng-model="item.name" ng-options="name for name in names">
+                        <option value="">アイテム名</option>
+                    </select>
+                    <button ng-click="createItem(item)">つくる</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-<div ng-controller="ItemController">
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="createdItem in createdItems" ng-click="equipItem(createdItem.id)">
-            アイテム名： {{createdItem.rank}}{{createdItem.name}}　攻撃力：{{createdItem.attack}}　防御力：{{createdItem.defence}}
-            <span ng-show="createdItem.equiped">装備中</span>
-        </li>
-    </ul>
-</div>
-<div ng-controller="ItemCreateController">
-    <form name="create">
-        <select ng-model="item.rank" ng-options="rank for rank in ranks">
-            <option value="">称号</option>
-        </select>
-        <select ng-model="item.name" ng-options="name for name in names">
-            <option value="">アイテム名</option>
-        </select>
-        <button ng-click="createItem(item)">つくる</button>
-    </form>
-    <pre>form = {{item | json}}</pre>
 </div>
 </body>
 </html>
